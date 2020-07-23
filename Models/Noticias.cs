@@ -19,6 +19,11 @@ namespace EPlayers.Models
             CreateFolderAndFile(PATH);
         }
 
+        /// <summary>
+        /// Inserindo novas noticias
+        /// </summary>
+        /// <param name="n"></param>
+        
         public void Create(Noticias n)
         {
             string [] linhas = { PrepararLinha(n)};
@@ -26,10 +31,21 @@ namespace EPlayers.Models
             
         }
 
+        /// <summary>
+        /// Preparando como os dados serão armazenados no arquivo Database
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        
         private string PrepararLinha(Noticias n)
         {
             return $"{n.IdNoticia};{n.Titulo};{n.Texto};{n.Imagem}";
         }
+
+        /// <summary>
+        /// Remove noticia filtrando o argumento
+        /// </summary>
+        /// <param name="IdNoticia">codigo de identificação da noticia</param>
 
         public void Delete(int IdNoticia)
         {
@@ -37,6 +53,11 @@ namespace EPlayers.Models
             linhas.RemoveAll(a => a.Split(";")[0] == IdNoticia.ToString());
             RewriteCSV(PATH, linhas);
         }
+
+        /// <summary>
+        /// Lê todas as linhas do arquivo Database atraves da lista
+        /// </summary>
+        /// <returns></returns>
 
         public List<Noticias> ReadAll()
         {
@@ -56,6 +77,11 @@ namespace EPlayers.Models
             return news;
         }
 
+        /// <summary>
+        /// Altera a noticia, primeiro excluindo e depois reescreve 
+        /// </summary>
+        /// <param name="n"></param>
+    
         public void Update(Noticias n)
         {
             List<string> linhas = ReadAllLinesCSV(PATH);
